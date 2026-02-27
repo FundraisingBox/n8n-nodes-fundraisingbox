@@ -1,8 +1,8 @@
 # @fundraisingbox/n8n-nodes-fundraisingbox
 
-This is an n8n community node. It lets you use _app/service name_ in your n8n workflows.
+This is an n8n community node. It lets you use FundraisingBox in your n8n workflows.
 
-_App/service name_ is _one or two sentences describing the service this node integrates with_.
+FundraisingBox is a donation and fundraising management platform that helps non-profit organizations collect and manage donations online.
 
 [n8n](https://n8n.io/) is a [fair-code licensed](https://docs.n8n.io/sustainable-use-license/) workflow automation platform.
 
@@ -20,15 +20,30 @@ Follow the [installation guide](https://docs.n8n.io/integrations/community-nodes
 
 ## Operations
 
-_List the operations supported by your node._
+### Person
+
+FundraisingBox uses the term "Person" for what many tools call a Contact.
+
+- **Create** – Create a new person. Requires Last Name. First Name and additional fields (Company ID, External Person ID, Greeting, Info, Position, Salutation, Title) are optional.
+- **Get** – Retrieve a single person by their numeric ID.
+- **List** – Return a list of persons. Use *Return All* to fetch every record, or set a *Limit* (default 50).
+- **Update** – Update an existing person by ID. All fields are optional.
 
 ## Credentials
 
-_If users need to authenticate with the app/service, provide details here. You should include prerequisites (such as signing up with the service), available authentication methods, and how to set them up._
+FundraisingBox uses HTTP Basic Auth with an API key. To authenticate:
+
+1. Retrieve your API key by following the [FundraisingBox support article on connecting third-party systems via REST API](https://support.fundraisingbox.com/de/support/solutions/articles/79000147562-schnittstellen-zu-drittsystemen-herstellen-rest-api-webhooks-).
+2. In n8n, create a new **FundraisingBox API** credential.
+3. Paste your API key into the **API Key** field.
+
+The node sends the API key as the HTTP Basic Auth username (the password field is ignored by the API).
 
 ## Compatibility
 
-_State the minimum n8n version, as well as which versions you test against. You can also include any known version incompatibility issues._
+Requires **n8n 1.x**. The node uses `usableAsTool: true`, which requires n8n 1.31 or later.
+
+No known incompatibilities with current n8n versions.
 
 ## Usage
 
@@ -39,8 +54,4 @@ _By the time users are looking for community nodes, they probably already know n
 ## Resources
 
 * [n8n community nodes documentation](https://docs.n8n.io/integrations/#community-nodes)
-* _Link to app/service documentation._
-
-## Version history
-
-_This is another optional section. If your node has multiple versions, include a short description of available versions and what changed, as well as any compatibility impact._
+* [FundraisingBox API documentation](https://developer.fundraisingbox.com/reference/introduction-json)

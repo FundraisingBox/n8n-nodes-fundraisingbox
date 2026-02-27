@@ -42,7 +42,7 @@ export class Fundraisingbox implements INodeType {
 				noDataExpression: true,
 				options: [
 					{
-						name: 'Contact (Person)',
+						name: 'Person',
 						value: 'person',
 						description:
 							'FundraisingBox uses the term Person for what many tools call a Contact',
@@ -63,7 +63,23 @@ export class Fundraisingbox implements INodeType {
 			const operation = this.getNodeParameter('operation', i) as string;
 
 			if (resource === 'person') {
-				if (operation === 'get') {
+				if (operation === 'create') {
+					const firstName = this.getNodeParameter('first_name', i) as string;
+					const lastName = this.getNodeParameter('last_name', i) as string;
+					const additionalFields = this.getNodeParameter('additionalFields', i) as IDataObject;
+					const body: IDataObject = { first_name: firstName, last_name: lastName, ...additionalFields };
+					const response = await this.helpers.httpRequestWithAuthentication.call(
+						this,
+						CREDENTIAL,
+						{
+							method: 'POST',
+							url: `${BASE_URL}/persons.json`,
+							headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
+							body,
+						},
+					);
+					returnData.push({ json: response as IDataObject, pairedItem: { item: i } });
+				} else if (operation === 'get') {
 					const personId = this.getNodeParameter('personId', i) as number;
 					const response = await this.helpers.httpRequestWithAuthentication.call(
 						this,
@@ -72,6 +88,21 @@ export class Fundraisingbox implements INodeType {
 							method: 'GET',
 							url: `${BASE_URL}/persons/${personId}.json`,
 							headers: { Accept: 'application/json' },
+						},
+					);
+					returnData.push({ json: response as IDataObject, pairedItem: { item: i } });
+				} else if (operation === 'update') {
+					const personId = this.getNodeParameter('personId', i) as number;
+					const updateFields = this.getNodeParameter('updateFields', i) as IDataObject;
+					const body: IDataObject = { ...updateFields };
+					const response = await this.helpers.httpRequestWithAuthentication.call(
+						this,
+						CREDENTIAL,
+						{
+							method: 'PUT',
+							url: `${BASE_URL}/persons/${personId}.json`,
+							headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
+							body,
 						},
 					);
 					returnData.push({ json: response as IDataObject, pairedItem: { item: i } });
