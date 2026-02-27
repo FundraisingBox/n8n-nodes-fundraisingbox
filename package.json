@@ -27,7 +27,8 @@
       "dist/credentials/FundraisingBoxApi.credentials.js"
     ],
     "nodes": [
-      "dist/nodes/FundraisingBox/Fundraisingbox.node.js"
+      "dist/nodes/FundraisingBox/Fundraisingbox.node.js",
+      "dist/nodes/FundraisingBox/FundraisingboxTrigger.node.js"
     ]
   },
   "devDependencies": {
