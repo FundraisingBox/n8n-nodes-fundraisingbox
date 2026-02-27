@@ -6,7 +6,6 @@ export const personGetDescription: INodeProperties[] = [
 		name: 'personId',
 		type: 'number',
 		required: true,
-		typeOptions: { minValue: 1 },
 		displayOptions: {
 			show: {
 				operation: ['get'],
