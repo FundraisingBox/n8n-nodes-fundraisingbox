@@ -20,7 +20,9 @@ Follow the [installation guide](https://docs.n8n.io/integrations/community-nodes
 
 ## Operations
 
-### Person
+### FundraisingBox (action node)
+
+#### Person
 
 FundraisingBox uses the term "Person" for what many tools call a Contact.
 
@@ -28,6 +30,10 @@ FundraisingBox uses the term "Person" for what many tools call a Contact.
 - **Get** – Retrieve a single person by their numeric ID.
 - **List** – Return a list of persons. Use *Return All* to fetch every record, or set a *Limit* (default 50).
 - **Update** – Update an existing person by ID. All fields are optional.
+
+### FundraisingBox Trigger (polling trigger node)
+
+- **On new donation** – Triggers the workflow whenever a new confirmed donation appears. On first activation the node initialises its checkpoint to the latest donation and will only emit donations created after that point.
 
 ## Credentials
 
