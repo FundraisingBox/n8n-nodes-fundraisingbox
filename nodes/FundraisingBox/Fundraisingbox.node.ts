@@ -6,6 +6,7 @@ import {
 	type INodeType,
 	type INodeTypeDescription,
 } from 'n8n-workflow';
+import { donationDescription } from './resources/donation';
 import { personDescription } from './resources/person';
 
 const BASE_URL = 'https://api.fundraisingbox.com/v1';
@@ -42,6 +43,10 @@ export class Fundraisingbox implements INodeType {
 				noDataExpression: true,
 				options: [
 					{
+						name: 'Donation',
+						value: 'donation',
+					},
+					{
 						name: 'Person',
 						value: 'person',
 						description:
@@ -50,6 +55,7 @@ export class Fundraisingbox implements INodeType {
 				],
 				default: 'person',
 			},
+			...donationDescription,
 			...personDescription,
 		],
 	};
@@ -62,7 +68,74 @@ export class Fundraisingbox implements INodeType {
 			const resource = this.getNodeParameter('resource', i) as string;
 			const operation = this.getNodeParameter('operation', i) as string;
 
-			if (resource === 'person') {
+			if (resource === 'donation') {
+				if (operation === 'get') {
+					const donationId = this.getNodeParameter('donationId', i) as number;
+					const response = await this.helpers.httpRequestWithAuthentication.call(
+						this,
+						CREDENTIAL,
+						{
+							method: 'GET',
+							url: `${BASE_URL}/donations/${donationId}.json`,
+							headers: { Accept: 'application/json' },
+						},
+					);
+					returnData.push({ json: response as IDataObject, pairedItem: { item: i } });
+				} else if (operation === 'list') {
+					const returnAll = this.getNodeParameter('returnAll', i) as boolean;
+					const limit = returnAll ? Infinity : (this.getNodeParameter('limit', i) as number);
+					const perPage = Math.min(returnAll ? 100 : limit, 100);
+					const filters = this.getNodeParameter('filters', i, {}) as IDataObject;
+
+					// ID-type fields where 0 means "not set"
+					const idFields = new Set([
+						'fb_project_id',
+						'fb_type_id',
+						'fb_source_id',
+						'fb_person_id',
+						'search_id',
+					]);
+
+					// Build query string: exclude empty strings, zero-value ID fields, and no-op option values
+					const qs: IDataObject = {};
+					for (const [key, value] of Object.entries(filters)) {
+						if (value === '' || value === null || value === undefined) continue;
+						if (idFields.has(key) && value === 0) continue;
+						if (key === 'is_test' && value === 'all') continue;
+						qs[key] = value;
+					}
+
+					const collected: IDataObject[] = [];
+					let page = 1;
+					let hasMore = true;
+
+					while (hasMore) {
+						const response = (await this.helpers.httpRequestWithAuthentication.call(
+							this,
+							CREDENTIAL,
+							{
+								method: 'GET',
+								url: `${BASE_URL}/donations.json`,
+								headers: { Accept: 'application/json' },
+								qs: { ...qs, page, perPage },
+							},
+						)) as { hasMore: boolean; data: IDataObject[] };
+
+						const batch = Array.isArray(response.data) ? response.data : [];
+						collected.push(...batch);
+						hasMore = Boolean(response.hasMore);
+
+						if (!returnAll && collected.length >= limit) break;
+						if (!hasMore) break;
+						page++;
+					}
+
+					const output = returnAll ? collected : collected.slice(0, limit);
+					for (const item of output) {
+						returnData.push({ json: item, pairedItem: { item: i } });
+					}
+				}
+			} else if (resource === 'person') {
 				if (operation === 'create') {
 					const firstName = this.getNodeParameter('first_name', i) as string;
 					const lastName = this.getNodeParameter('last_name', i) as string;
