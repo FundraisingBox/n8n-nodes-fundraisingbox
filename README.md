@@ -22,6 +22,24 @@ Follow the [installation guide](https://docs.n8n.io/integrations/community-nodes
 
 ### FundraisingBox (action node)
 
+#### Communication
+
+- **Create** – Create a new communication entry linked to a person. Requires Person ID and HTML message. Optional fields: type (note/email/phone/talk/letter), subject, direction (in/out), date, sticky.
+- **Delete** – Delete a communication entry by ID.
+- **Get** – Retrieve a single communication entry by ID.
+- **List** – Return a list of communications. Filter by Person ID, type, direction, and date range. Supports pagination.
+- **Update** – Update an existing communication entry by ID.
+
+#### Donation
+
+- **Get** – Retrieve a single donation by ID.
+- **List** – Return a list of donations. Filter by amount range, date range, updated range, project, type, source, person, test status, and various IDs. Supports pagination.
+
+#### Donation Type
+
+- **Get** – Retrieve a single donation type by ID.
+- **List** – Return a list of donation types. Supports pagination.
+
 #### Person
 
 FundraisingBox uses the term "Person" for what many tools call a Contact.
@@ -31,9 +49,31 @@ FundraisingBox uses the term "Person" for what many tools call a Contact.
 - **List** – Return a list of persons. Use *Return All* to fetch every record, or set a *Limit* (default 50).
 - **Update** – Update an existing person by ID. All fields are optional.
 
-### FundraisingBox Trigger (polling trigger node)
+#### Person Address
 
-- **On new donation** – Triggers the workflow whenever a new confirmed donation appears. On first activation the node initialises its checkpoint to the latest donation and will only emit donations created after that point.
+- **Create** – Create a new address for a person. Requires Person ID, street address, post code, city, and country. Optional fields: state, type (work/home/other), is main address.
+- **Get** – Retrieve a single address by ID.
+- **Update** – Update an existing address by ID. Updatable fields: street address, post code, city, state, country, type, is main address.
+
+#### Person Email Address
+
+- **Create** – Create a new email address for a person. Requires Person ID and email. Optional fields: type (work/home/other), is main email address.
+- **Get** – Retrieve a single email address by ID.
+- **Update** – Update an existing email address by ID. Updatable fields: email, type, is main email address.
+
+#### Project
+
+- **Get** – Retrieve a single project by ID.
+- **List** – Return a list of projects. Supports pagination.
+
+#### Source
+
+- **Get** – Retrieve a single source by ID.
+- **List** – Return a list of sources. Supports pagination.
+
+### FundraisingBox Donation Trigger (polling trigger node)
+
+- **New Donation** – Triggers the workflow whenever a new confirmed donation appears. On first activation the node initialises its checkpoint to the latest donation and will only emit donations created after that point.
 
 ## Credentials
 
@@ -50,12 +90,6 @@ The node sends the API key as the HTTP Basic Auth username (the password field i
 Requires **n8n 1.x**. The node uses `usableAsTool: true`, which requires n8n 1.31 or later.
 
 No known incompatibilities with current n8n versions.
-
-## Usage
-
-_This is an optional section. Use it to help users with any difficult or confusing aspects of the node._
-
-_By the time users are looking for community nodes, they probably already know n8n basics. But if you expect new users, you can link to the [Try it out](https://docs.n8n.io/try-it-out/) documentation to help them get started._
 
 ## Resources
 
