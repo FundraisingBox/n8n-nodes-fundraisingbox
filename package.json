@@ -1,9 +1,9 @@
 {
   "name": "@fundraisingbox/n8n-nodes-fundraisingbox",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "n8n community node for FundraisingBox",
   "license": "MIT",
-  "homepage": "",
+  "homepage": "https://github.com/FundraisingBox/n8n-nodes-fundraisingbox",
   "keywords": ["n8n-community-node-package"],
   "author": { "name": "Patricia Montag", "email": "p.montag@fundraisingbox.com" },
   "repository": {
