@@ -26,6 +26,7 @@ export const personEmailAddressCreateDescription: INodeProperties[] = [
 				resource: ['personEmailAddress'],
 			},
 		},
+		placeholder: 'name@email.com',
 		default: '',
 	},
 	{
