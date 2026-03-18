@@ -26,13 +26,13 @@ export const personDescription: INodeProperties[] = [
 				name: 'Get',
 				value: 'get',
 				action: 'Get a person',
-				description: 'Get a person by ID',
+				description: 'Retrieve a person',
 			},
 			{
-				name: 'List',
+				name: 'Get Many',
 				value: 'list',
-				action: 'List persons',
-				description: 'List persons',
+				action: 'Get many persons',
+				description: 'Retrieve a list of persons',
 			},
 			{
 				name: 'Update',

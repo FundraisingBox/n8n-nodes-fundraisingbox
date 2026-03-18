@@ -366,16 +366,12 @@ export class Fundraisingbox implements INodeType {
 					returnData.push({ json: response as IDataObject, pairedItem: { item: i } });
 				} else if (operation === 'delete') {
 					const communicationId = this.getNodeParameter('communicationId', i) as number;
-					const response = await this.helpers.httpRequestWithAuthentication.call(
-						this,
-						CREDENTIAL,
-						{
-							method: 'DELETE',
-							url: `${BASE_URL}/communications/${communicationId}.json`,
-							headers: { Accept: 'application/json' },
-						},
-					);
-					returnData.push({ json: response as IDataObject, pairedItem: { item: i } });
+					await this.helpers.httpRequestWithAuthentication.call(this, CREDENTIAL, {
+						method: 'DELETE',
+						url: `${BASE_URL}/communications/${communicationId}.json`,
+						headers: { Accept: 'application/json' },
+					});
+					returnData.push({ json: { deleted: true }, pairedItem: { item: i } });
 				} else if (operation === 'update') {
 					const communicationId = this.getNodeParameter('communicationId', i) as number;
 					const updateFields = this.getNodeParameter('updateFields', i) as IDataObject;

@@ -25,7 +25,7 @@ export const personAddressDescription: INodeProperties[] = [
 				name: 'Get',
 				value: 'get',
 				action: 'Get a person address',
-				description: 'Get an address by ID',
+				description: 'Retrieve a person address',
 			},
 			{
 				name: 'Update',

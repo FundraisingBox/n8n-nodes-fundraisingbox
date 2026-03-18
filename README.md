@@ -10,9 +10,7 @@ FundraisingBox is a donation and fundraising management platform that helps non-
 [Operations](#operations)
 [Credentials](#credentials)
 [Compatibility](#compatibility)
-[Usage](#usage)
 [Resources](#resources)
-[Version history](#version-history)
 
 ## Installation
 
@@ -25,20 +23,20 @@ Follow the [installation guide](https://docs.n8n.io/integrations/community-nodes
 #### Communication
 
 - **Create** – Create a new communication entry linked to a person. Requires Person ID and HTML message. Optional fields: type (note/email/phone/talk/letter), subject, direction (in/out), date, sticky.
-- **Delete** – Delete a communication entry by ID.
+- **Delete** – Delete a communication entry permanently.
 - **Get** – Retrieve a single communication entry by ID.
-- **List** – Return a list of communications. Filter by Person ID, type, direction, and date range. Supports pagination.
+- **Get Many** – Retrieve a list of communications. Filter by Person ID, type, direction, and date range. Supports pagination.
 - **Update** – Update an existing communication entry by ID.
 
 #### Donation
 
 - **Get** – Retrieve a single donation by ID.
-- **List** – Return a list of donations. Filter by amount range, date range, updated range, project, type, source, person, test status, and various IDs. Supports pagination.
+- **Get Many** – Retrieve a list of donations. Filter by amount range, date range, updated range, project, type, source, person, test status, and various IDs. Supports pagination.
 
 #### Donation Type
 
 - **Get** – Retrieve a single donation type by ID.
-- **List** – Return a list of donation types. Supports pagination.
+- **Get Many** – Retrieve a list of donation types. Supports pagination.
 
 #### Person
 
@@ -46,7 +44,7 @@ FundraisingBox uses the term "Person" for what many tools call a Contact.
 
 - **Create** – Create a new person. Requires Last Name. First Name and additional fields (Company ID, External Person ID, Greeting, Info, Position, Salutation, Title) are optional.
 - **Get** – Retrieve a single person by their numeric ID.
-- **List** – Return a list of persons. Use *Return All* to fetch every record, or set a *Limit* (default 50).
+- **Get Many** – Retrieve a list of persons. Use *Return All* to fetch every record, or set a *Limit* (default 50).
 - **Update** – Update an existing person by ID. All fields are optional.
 
 #### Person Address
@@ -64,12 +62,12 @@ FundraisingBox uses the term "Person" for what many tools call a Contact.
 #### Project
 
 - **Get** – Retrieve a single project by ID.
-- **List** – Return a list of projects. Supports pagination.
+- **Get Many** – Retrieve a list of projects. Supports pagination.
 
 #### Source
 
 - **Get** – Retrieve a single source by ID.
-- **List** – Return a list of sources. Supports pagination.
+- **Get Many** – Retrieve a list of sources. Supports pagination.
 
 ### FundraisingBox Donation Trigger (polling trigger node)
 
