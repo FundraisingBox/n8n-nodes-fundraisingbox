@@ -14,6 +14,7 @@ const ENDPOINTS: Record<string, string> = {
 	donation: '/donations.json',
 };
 
+// eslint-disable-next-line @n8n/community-nodes/node-usable-as-tool
 export class FundraisingboxTrigger implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'FundraisingBox Trigger',
@@ -21,7 +22,6 @@ export class FundraisingboxTrigger implements INodeType {
 		icon: { light: 'file:fundraisingbox.svg', dark: 'file:fundraisingbox.dark.svg' },
 		group: ['trigger'],
 		version: 1,
-		usableAsTool: true,
 		description: 'Triggers the workflow when a new event occurs in FundraisingBox',
 		defaults: { name: 'FundraisingBox Trigger' },
 		credentials: [{ name: CREDENTIAL, required: true }],

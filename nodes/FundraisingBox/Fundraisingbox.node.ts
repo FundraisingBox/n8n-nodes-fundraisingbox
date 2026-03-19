@@ -1,10 +1,12 @@
 import {
+	NodeApiError,
 	NodeConnectionTypes,
 	type IDataObject,
 	type IExecuteFunctions,
 	type INodeExecutionData,
 	type INodeType,
 	type INodeTypeDescription,
+	type JsonObject,
 } from 'n8n-workflow';
 import { communicationDescription } from './resources/communication';
 import { donationDescription } from './resources/donation';
@@ -34,13 +36,6 @@ export class Fundraisingbox implements INodeType {
 		inputs: [NodeConnectionTypes.Main],
 		outputs: [NodeConnectionTypes.Main],
 		credentials: [{ name: 'fundraisingBoxApi', required: true }],
-		requestDefaults: {
-			baseURL: BASE_URL,
-			headers: {
-				Accept: 'application/json',
-				'Content-Type': 'application/json',
-			},
-		},
 		properties: [
 			{
 				displayName: 'Resource',
@@ -101,6 +96,7 @@ export class Fundraisingbox implements INodeType {
 		const returnData: INodeExecutionData[] = [];
 
 		for (let i = 0; i < items.length; i++) {
+			try {
 			const resource = this.getNodeParameter('resource', i) as string;
 			const operation = this.getNodeParameter('operation', i) as string;
 
@@ -582,6 +578,13 @@ export class Fundraisingbox implements INodeType {
 						returnData.push({ json: item, pairedItem: { item: i } });
 					}
 				}
+			}
+			} catch (error) {
+				if (this.continueOnFail()) {
+					returnData.push({ json: { error: (error as Error).message }, pairedItem: { item: i } });
+					continue;
+				}
+				throw new NodeApiError(this.getNode(), error as JsonObject);
 			}
 		}
 
