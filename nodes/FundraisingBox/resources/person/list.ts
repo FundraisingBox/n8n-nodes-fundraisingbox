@@ -106,7 +106,7 @@ export const personListDescription: INodeProperties[] = [
 				name: 'salutation',
 				type: 'options',
 				options: [
-					{ name: '(No filter)', value: '' },
+					{ name: '(No Filter)', value: '' },
 					{ name: 'Couple', value: 'couple' },
 					{ name: 'Diverse', value: 'diverse' },
 					{ name: 'Family', value: 'family' },
