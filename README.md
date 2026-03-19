@@ -44,7 +44,7 @@ FundraisingBox uses the term "Person" for what many tools call a Contact.
 
 - **Create** – Create a new person. Requires Last Name. First Name and additional fields (Company ID, External Person ID, Greeting, Info, Position, Salutation, Title) are optional.
 - **Get** – Retrieve a single person by their numeric ID.
-- **Get Many** – Retrieve a list of persons. Use *Return All* to fetch every record, or set a *Limit* (default 50).
+- **Get Many** – Retrieve a list of persons. Filter by salutation, first/last name, company, phone, email, address, tag IDs, person IDs, smart search ID, and created/updated date range. Supports pagination.
 - **Update** – Update an existing person by ID. All fields are optional.
 
 #### Person Address

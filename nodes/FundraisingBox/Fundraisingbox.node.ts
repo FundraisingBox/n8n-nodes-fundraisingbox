@@ -543,6 +543,14 @@ export class Fundraisingbox implements INodeType {
 						: (this.getNodeParameter('limit', i) as number);
 					// Use full page size when returnAll, otherwise cap at limit to avoid over-fetching
 					const perPage = Math.min(returnAll ? 100 : limit, 100);
+					const filters = this.getNodeParameter('filters', i, {}) as IDataObject;
+
+					const qs: IDataObject = {};
+					for (const [key, value] of Object.entries(filters)) {
+						if (value === '' || value === null || value === undefined) continue;
+						if (key === 'search_id' && value === 0) continue;
+						qs[key] = value;
+					}
 
 					const collected: IDataObject[] = [];
 					let page = 1;
@@ -556,7 +564,7 @@ export class Fundraisingbox implements INodeType {
 								method: 'GET',
 								url: `${BASE_URL}/persons.json`,
 								headers: { Accept: 'application/json' },
-								qs: { page, perPage },
+								qs: { ...qs, page, perPage },
 							},
 						)) as { hasMore: boolean; data: IDataObject[] };
 
