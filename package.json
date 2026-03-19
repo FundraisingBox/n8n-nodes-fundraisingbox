@@ -1,6 +1,6 @@
 {
   "name": "@fundraisingbox/n8n-nodes-fundraisingbox",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "n8n community node for FundraisingBox",
   "license": "MIT",
   "homepage": "https://github.com/FundraisingBox/n8n-nodes-fundraisingbox",
