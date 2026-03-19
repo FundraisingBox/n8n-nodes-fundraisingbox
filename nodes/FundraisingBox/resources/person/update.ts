@@ -6,7 +6,6 @@ export const personUpdateDescription: INodeProperties[] = [
 		name: 'personId',
 		type: 'number',
 		required: true,
-		typeOptions: { minValue: 1 },
 		displayOptions: {
 			show: {
 				operation: ['update'],
