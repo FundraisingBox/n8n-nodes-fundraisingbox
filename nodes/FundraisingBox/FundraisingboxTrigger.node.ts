@@ -22,7 +22,7 @@ export class FundraisingboxTrigger implements INodeType {
 		icon: { light: 'file:fundraisingbox.svg', dark: 'file:fundraisingbox.dark.svg' },
 		group: ['trigger'],
 		version: 1,
-		description: 'Triggers the workflow when a new event occurs in FundraisingBox',
+		description: 'Triggers the workflow when new donations arrive in FundraisingBox',
 		defaults: { name: 'FundraisingBox Trigger' },
 		credentials: [{ name: CREDENTIAL, required: true }],
 		polling: true,

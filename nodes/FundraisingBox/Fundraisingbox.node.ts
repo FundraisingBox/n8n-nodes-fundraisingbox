@@ -28,7 +28,7 @@ export class Fundraisingbox implements INodeType {
 		group: ['transform'],
 		version: 1,
 		subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
-		description: 'Interact with the FundraisingBox API',
+		description: 'Manage donations, donors, communications, and projects in FundraisingBox',
 		defaults: {
 			name: 'FundraisingBox',
 		},
